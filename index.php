@@ -1,7 +1,6 @@
 <?php
 include_once 'conection.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -9,6 +8,7 @@ include_once 'conection.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -31,12 +31,19 @@ include_once 'conection.php';
     if (isset($_SESSION['resultados'])) {
         $resultados = $_SESSION['resultados'];
         echo "<h1>Resultados da Busca:</h1>";
+
         foreach ($resultados as $row) {
             echo "<p>ID: " . $row['id_produto'] . "</p>";
             echo "<p>Nome: " . $row['nome_produto'] . "</p>";
             echo "<p>Preço: " . $row['preco'] . "</p>";
+            if ($row['quantidade'] <= 5) {
+                echo "<p style='color: red;'>Quantidade: " . $row['quantidade'] . "</p>";
+            } else {
+                echo "<p>Quantidade: " . $row['quantidade'] . "</p>";
+            }
             echo "<p>Descrição: " . $row['descricao'] . "</p>";
             echo "<p>Categoria: " . $row['id_categoria'] . "</p>";
+            echo "<hr>";
         }
         unset($_SESSION['resultados']);
     }
@@ -63,23 +70,18 @@ include_once 'conection.php';
         <input type="text" name="Preco" id="Preco">
         <label for="descricao">Descrição</label>
         <input type="text" name="Descricao" id="Descricao">
+        <label for="quantidade">Quantidade</label>
+        <input type="text" name="Quantidade" id="Quantidade">
         <fieldset>
             <legend>Escolha a categoria:</legend>
 
-            <div>
-                <input type="radio" id="material" name="materia" value="material">
-                <label for="material">Material</label>
-            </div>
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria">
+                <option value="material">material</option>
+                <option value="ferramenta">ferramenta</option>
+                <option value="acabamento">acabamento</option>
+            </select>
 
-            <div>
-                <input type="radio" id="ferramenta" name="ferramenta" value="ferramenta">
-                <label for="ferramenta">Ferramenta</label>
-            </div>
-
-            <div>
-                <input type="radio" id="acabamento" name="acabamento" value="acabamento">
-                <label for="acabamento">Acabamento</label>
-            </div>
         </fieldset>
         <button>Submit</button>
     </form>
@@ -94,23 +96,16 @@ include_once 'conection.php';
         <input type="text" name="Preco" id="Preco">
         <label for="descricao">Descrição</label>
         <input type="text" name="Descricao" id="Descricao">
+        <label for="quantidade">Quantidade</label>
+        <input type="text" name="Quantidade" id="Quantidade">
         <fieldset>
             <legend>Escolha a categoria:</legend>
-
-            <div>
-                <input type="radio" id="material" name="material" value="material">
-                <label for="material">Material</label>
-            </div>
-
-            <div>
-                <input type="radio" id="ferramenta" name="ferramenta" value="ferramenta">
-                <label for="ferramenta">Ferramenta</label>
-            </div>
-
-            <div>
-                <input type="radio" id="acabamento" name="acabamento" value="acabamento">
-                <label for="acabamento">Acabamento</label>
-            </div>
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria">
+                <option value="material">material</option>
+                <option value="ferramenta">ferramenta</option>
+                <option value="acabamento">acabamento</option>
+            </select>
         </fieldset>
 
         <button>Submit</button>

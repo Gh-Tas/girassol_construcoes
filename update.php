@@ -6,8 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $nome = $_POST['Nome'];
     $preco = $_POST['Preco'];
+    $quantidade = $_POST['Quantidade'];
     $descricao = $_POST['Descricao'];
-    $categoria = $_POST['material'] ?? $_POST['ferramenta'] ?? $_POST['acabamento'] ?? null;
+    $categoria = $_POST['categoria'];
 
     if (empty($id)) {
         $id = '';
@@ -18,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($preco)) {
         $preco = '';
     }
+    if (empty($quantidade)) {
+        $quantidade = '';
+    }
     if (empty($descricao)) {
         $descricao = '';
     }
@@ -25,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $categoria = '';
     }
 
-    if (isset($_POST['materia']) && !empty($_POST['materia'])) {
+    if ($categoria == 'material') {
         $categoria = 1;
-    } elseif (isset($_POST['ferramenta'])) {
+    } elseif ($categoria == 'ferramenta') {
         $categoria = 2;
-    } elseif (isset($_POST['acabamento'])) {
+    } elseif ($categoria == 'acabamento') {
         $categoria = 3;
     }
 
@@ -39,10 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<p>Por favor, preencha todos os campos.</p>";
     }
 
-    $sql = ("UPDATE produtos SET nome_produto = :nome, preco = :preco, descricao = :descricao, id_categoria = :id_categoria WHERE id_produto = :id");
+    $sql = ("UPDATE produtos SET nome_produto = :nome, preco = :preco, descricao = :descricao, id_categoria = :id_categoria, quantidade = :quantidade WHERE id_produto = :id");
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':preco', $preco);
+    $stmt->bindParam(':quantidade', $quantidade);
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':id_categoria', $categoria);
     $stmt->bindParam(':id', $id);

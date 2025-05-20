@@ -5,28 +5,32 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $_POST['Nome'];
     $preco = $_POST['Preco'];
+    $quantidade = $_POST['Quantidade'];
     $descricao = $_POST['Descricao'];
-    $categoria = $_POST['material'] ?? $_POST['ferramenta'] ?? $_POST['acabamento'];
+    $categoria = $_POST['categoria'];
 
-    if (isset($_POST['material'])) {
+    if ($categoria == 'material') {
         $categoria = 1;
-    } elseif (isset($_POST['ferramenta'])) {
+    } elseif ($categoria == 'ferramenta') {
         $categoria = 2;
-    } elseif (isset($_POST['acabamento'])) {
+    } elseif ($categoria == 'acabamento') {
         $categoria = 3;
     }
 
-    if (empty($nome) || empty($preco) || empty($descricao) || empty($categoria)) {
+    var_dump($categoria);
+
+    if (empty($nome) || empty($preco) || empty($descricao) || empty($categoria) || empty($quantidade)) {
         $_SESSION['mensagem'] = 'preencha_todos_os_campos';
         header('Location: index.php');
         exit();
     }
 
 
-    $sql = ("INSERT INTO produtos (nome_produto, preco, descricao, id_categoria) VALUES (:nome, :preco, :descricao, :id_categoria)");
+    $sql = ("INSERT INTO produtos (nome_produto, preco, descricao, id_categoria, quantidade) VALUES (:nome, :preco, :descricao, :id_categoria, :quantidade)");
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':preco', $preco);
+    $stmt->bindParam(':quantidade', $quantidade);
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':id_categoria', $categoria);
     $stmt->execute();
