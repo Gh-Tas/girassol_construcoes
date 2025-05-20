@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 require_once 'conection.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
@@ -36,10 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         header("Location: index.php");
         exit();
     }
-
 } else {
     $_SESSION['erro'] = "metodo_invalido";
     header("Location: index.php");
     exit();
 }
-?>
