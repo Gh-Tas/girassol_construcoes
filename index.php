@@ -25,7 +25,7 @@ include_once 'conection.php';
         <input type="submit" value="Filtrar">
     </form>
     <?php
-    session_start(); // Inicie a sessão no início do arquivo
+    session_start();
     include_once 'conection.php';
 
     if (isset($_SESSION['resultados'])) {
@@ -37,23 +37,22 @@ include_once 'conection.php';
             echo "<p>Preço: " . $row['preco'] . "</p>";
             echo "<p>Descrição: " . $row['descricao'] . "</p>";
             echo "<p>Categoria: " . $row['id_categoria'] . "</p>";
-            // ... outras informações ...
         }
-        unset($_SESSION['resultados']); // Limpe a variável de sessão após o uso
+        unset($_SESSION['resultados']);
     }
 
     if (isset($_SESSION['mensagem'])) {
         if ($_SESSION['mensagem'] == 'nenhum_produto') {
             echo "<p>Nenhum produto encontrado com os critérios especificados.</p>";
         }
-        unset($_SESSION['mensagem']); // Limpe a variável de sessão após o uso
+        unset($_SESSION['mensagem']);
     }
 
     if (isset($_SESSION['erro'])) {
         if ($_SESSION['erro'] == 'metodo_invalido') {
             echo "<p>Erro na requisição.</p>";
         }
-        unset($_SESSION['erro']); // Limpe a variável de sessão após o uso
+        unset($_SESSION['erro']);
     }
     ?>
     <h1>Insira um Dado</h1>
